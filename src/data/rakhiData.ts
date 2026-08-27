@@ -201,4 +201,17 @@ export const chapters = [
   "My Promise To You",
   "A Letter From Your Brother",
   "Open This Again Years From Now",
-];
+] as const;
+
+export const site = {
+  title: "A Gift I Couldn't Buy — Raksha Bandhan 2026",
+  description: "A little digital gift from a brother to his sisters.",
+};
+
+export function getSister(id: string): Sister | undefined {
+  if (id === rakhiData.sister1.id) return rakhiData.sister1;
+  if (id === rakhiData.sister2.id) return rakhiData.sister2;
+  return undefined;
+}
+
+export const sisters = [rakhiData.sister1, rakhiData.sister2];

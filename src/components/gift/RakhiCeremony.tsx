@@ -20,9 +20,26 @@ export function RakhiCeremony() {
       <div className="relative mt-14 w-full max-w-md">
         <div
           className={`pointer-events-none absolute inset-0 -z-10 rounded-full blur-3xl transition-opacity duration-[1400ms] ${
-            tied ? "bg-ember/40 opacity-100" : "bg-ember/10 opacity-40"
+            tied ? "bg-ember/40 opacity-100 animate-soft-glow" : "bg-ember/10 opacity-40"
           }`}
         />
+        {tied
+          ? Array.from({ length: 10 }).map((_, i) => (
+              <span
+                key={i}
+                aria-hidden
+                className="pointer-events-none absolute rounded-full bg-gold/80 animate-ember"
+                style={{
+                  left: `${12 + ((i * 9) % 76)}%`,
+                  bottom: "20%",
+                  width: 3,
+                  height: 3,
+                  animationDuration: `${10 + (i % 5)}s`,
+                  animationDelay: `${i * 0.12}s`,
+                }}
+              />
+            ))
+          : null}
         <svg viewBox="0 0 400 260" className="w-full" role="img" aria-label="A stylised wrist with a rakhi">
           <defs>
             <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">

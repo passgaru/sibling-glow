@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HouseRouteImport } from './routes/house'
+import { Route as ThreeOfUsRouteImport } from './routes/three-of-us'
+import { Route as SisterIdRouteImport } from './routes/sister/$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HouseRoute = HouseRouteImport.update({
+  id: '/house',
+  path: '/house',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThreeOfUsRoute = ThreeOfUsRouteImport.update({
+  id: '/three-of-us',
+  path: '/three-of-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SisterIdRoute = SisterIdRouteImport.update({
+  id: '/sister/$id',
+  path: '/sister/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/house': typeof HouseRoute
+  '/three-of-us': typeof ThreeOfUsRoute
+  '/sister/$id': typeof SisterIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/house': typeof HouseRoute
+  '/three-of-us': typeof ThreeOfUsRoute
+  '/sister/$id': typeof SisterIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/house': typeof HouseRoute
+  '/three-of-us': typeof ThreeOfUsRoute
+  '/sister/$id': typeof SisterIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/house' | '/three-of-us' | '/sister/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/house' | '/three-of-us' | '/sister/$id'
+  id: '__root__' | '/' | '/house' | '/three-of-us' | '/sister/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HouseRoute: typeof HouseRoute
+  ThreeOfUsRoute: typeof ThreeOfUsRoute
+  SisterIdRoute: typeof SisterIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/house': {
+      id: '/house'
+      path: '/house'
+      fullPath: '/house'
+      preLoaderRoute: typeof HouseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/three-of-us': {
+      id: '/three-of-us'
+      path: '/three-of-us'
+      fullPath: '/three-of-us'
+      preLoaderRoute: typeof ThreeOfUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sister/$id': {
+      id: '/sister/$id'
+      path: '/sister/$id'
+      fullPath: '/sister/$id'
+      preLoaderRoute: typeof SisterIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HouseRoute: HouseRoute,
+  ThreeOfUsRoute: ThreeOfUsRoute,
+  SisterIdRoute: SisterIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

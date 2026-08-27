@@ -3,23 +3,21 @@ import { useEffect, useState } from "react";
 import { Atmosphere } from "@/components/gift/Atmosphere";
 import { CtaButton } from "@/components/gift/CtaButton";
 import { AudioController } from "@/components/gift/AudioController";
+import { images, site } from "@/data/rakhiData";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "A Gift I Couldn't Buy — Raksha Bandhan 2026" },
-      {
-        name: "description",
-        content: "A little digital gift from a brother to his sisters. Raksha Bandhan 2026.",
-      },
-      { property: "og:title", content: "A Gift I Couldn't Buy — Raksha Bandhan 2026" },
-      {
-        property: "og:description",
-        content: "A little digital gift from a brother to his sisters.",
-      },
+      { title: site.title },
+      { name: "description", content: site.description },
+      { property: "og:title", content: site.title },
+      { property: "og:description", content: site.description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:image", content: images.family },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: site.title },
+      { name: "twitter:description", content: site.description },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
@@ -28,19 +26,30 @@ export const Route = createFileRoute("/")({
 
 function Opening() {
   const navigate = useNavigate();
+  const reduced = useReducedMotion();
   const [step, setStep] = useState(0);
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
+    if (reduced) {
+      setStep(5);
+      return;
+    }
     const timers = [900, 2200, 3600, 5000, 6200].map((ms, i) =>
       setTimeout(() => setStep(i + 1), ms),
     );
     return () => timers.forEach(clearTimeout);
-  }, []);
+  }, [reduced]);
 
   const open = () => {
+    if (reduced) {
+      void navigate({ to: "/house" });
+      return;
+    }
     setLeaving(true);
-    setTimeout(() => navigate({ to: "/house" }), 900);
+    setTimeout(() => {
+      void navigate({ to: "/house" });
+    }, 900);
   };
 
   const fade = (n: number) =>

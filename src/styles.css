@@ -106,6 +106,10 @@
     outline: 2px solid var(--gold);
     outline-offset: 3px;
   }
+  button,
+  a {
+    touch-action: manipulation;
+  }
 }
 
 @utility grain {

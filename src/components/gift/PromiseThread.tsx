@@ -17,8 +17,10 @@ export function PromiseThread({ promises }: { promises: string[] }) {
       <div className="relative mt-12 pl-8 sm:pl-12">
         <span
           aria-hidden
-          className="absolute left-2 top-1 w-px bg-gradient-to-b from-gold/70 via-ember/50 to-transparent transition-[height] duration-1000"
-          style={{ height: `${Math.max(shown, 1) * 20}%`, bottom: 0 }}
+          className="absolute left-2 top-0 w-px bg-gradient-to-b from-gold/70 via-ember/50 to-transparent transition-[height] duration-1000"
+          style={{
+            height: promises.length === 0 ? 0 : `${(shown / promises.length) * 100}%`,
+          }}
         />
         <ul className="space-y-6">
           {promises.slice(0, shown).map((p, i) => (

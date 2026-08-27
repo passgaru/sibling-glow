@@ -16,7 +16,7 @@ export function CtaButton({
       ? "bg-gradient-to-b from-primary to-gold text-primary-foreground shadow-[0_0_50px_-14px_var(--gold)] hover:shadow-[0_0_70px_-8px_var(--gold)] hover:brightness-110"
       : "glass text-ivory/85 hover:text-ivory hover:border-gold/40";
   return (
-    <button {...rest} className={`${base} ${styles} ${className}`}>
+    <button type="button" {...rest} className={`${base} ${styles} ${className}`}>
       <span>{children}</span>
     </button>
   );

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Reveal } from "./Reveal";
 
 export function ChapterShell({
@@ -37,12 +37,32 @@ export function ChapterShell({
 }
 
 export function ScrollProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const root = document.documentElement;
+      const max = root.scrollHeight - root.clientHeight;
+      setProgress(max <= 0 ? 0 : root.scrollTop / max);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   return (
     <div
-      aria-hidden
+      role="progressbar"
+      aria-label="Reading progress"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(progress * 100)}
       className="fixed inset-x-0 top-0 z-50 h-[2px] origin-left bg-gradient-to-r from-ember via-gold to-transparent"
-      style={{ transform: "scaleX(var(--scroll, 0))" }}
-      id="scroll-progress"
+      style={{ transform: `scaleX(${progress})` }}
     />
   );
 }
