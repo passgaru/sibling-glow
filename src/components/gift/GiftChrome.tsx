@@ -7,7 +7,7 @@ export function GiftChrome({
   children,
   progress = false,
 }: {
-  children: ReactNode;
+  children?: ReactNode;
   progress?: boolean;
 }) {
   return (
