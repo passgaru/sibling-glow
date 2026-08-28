@@ -68,13 +68,13 @@ export function AudioController() {
   };
 
   return (
-    <div className="fixed bottom-4 left-4 z-40 flex items-center gap-2 rounded-full glass px-3 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+    <div className="fixed bottom-4 left-4 z-40 flex items-center gap-1 rounded-full glass px-2 py-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] sm:gap-2 sm:px-3 sm:py-2">
       {musicSrc && <audio ref={audioRef} src={musicSrc} loop preload="none" />}
       <button
         type="button"
         onClick={toggle}
         aria-label={playing ? "Pause ambience" : "Play ambience"}
-        className="flex h-9 w-9 items-center justify-center rounded-full text-ivory/80 transition hover:text-gold"
+        className="flex h-11 w-11 items-center justify-center rounded-full text-ivory/80 transition hover:text-gold sm:h-9 sm:w-9"
       >
         <span className="flex items-end gap-[2px]" aria-hidden>
           {[0, 1, 2].map((i) => (
@@ -93,7 +93,7 @@ export function AudioController() {
         onClick={() => setMuted((m) => !m)}
         aria-label={muted ? "Unmute" : "Mute"}
         aria-pressed={muted}
-        className="text-[0.6rem] uppercase tracking-[0.2em] text-ivory/60 transition hover:text-gold"
+        className="flex h-11 items-center px-2 text-[0.6rem] uppercase tracking-[0.2em] text-ivory/60 transition hover:text-gold sm:h-9"
       >
         {muted ? "Muted" : "Sound"}
       </button>
@@ -108,8 +108,9 @@ export function AudioController() {
         step={0.05}
         value={volume}
         onChange={(e) => setVolume(Number(e.target.value))}
-        className="h-1 w-16 cursor-pointer accent-[var(--gold)]"
+        className="hidden h-1 w-16 cursor-pointer accent-[var(--gold)] sm:block"
       />
+
     </div>
   );
 }
