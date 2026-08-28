@@ -35,9 +35,22 @@ function House() {
             params={{ id: sister.id }}
             className="group rounded-[1.75rem] glass lift p-8 text-left transition-transform duration-500 hover:-translate-y-1"
           >
-            <p className="text-2xl" aria-hidden>
-              {sister.flower}
-            </p>
+            <svg viewBox="0 0 40 40" className="h-8 w-8 text-gold/80" aria-hidden>
+              {[0, 60, 120, 180, 240, 300].map((a) => (
+                <ellipse
+                  key={a}
+                  cx="20"
+                  cy="12"
+                  rx="4.2"
+                  ry="7.5"
+                  fill="currentColor"
+                  fillOpacity="0.35"
+                  transform={`rotate(${a} 20 20)`}
+                />
+              ))}
+              <circle cx="20" cy="20" r="3.2" fill="currentColor" />
+            </svg>
+
             <h2 className="mt-4 text-3xl text-ivory sm:text-4xl">{sister.name}</h2>
             <p className="mt-2 text-sm italic text-ivory/55">{sister.nickname}</p>
             <p className="mt-8 text-[0.68rem] uppercase tracking-[0.28em] text-gold/80 transition group-hover:text-gold">
